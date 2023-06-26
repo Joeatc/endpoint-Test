@@ -11,3 +11,9 @@ COPY . .
 EXPOSE 3000
 
 CMD ["node", "app.js"]
+#
+# docker comands in the projects directory
+# with cli
+# -------------
+# docker build -t endpoint-test .
+# docker run -p 3000:3000 endpoint-test
