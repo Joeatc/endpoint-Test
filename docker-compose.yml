@@ -1,34 +1,25 @@
 version: '3'
 services:
-  node-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
-      - 3000:3000
-    depends_on:
-      - sql-server
-    networks:
-      - my-network
+      - "80:80"
 
   sql-server:
     image: mcr.microsoft.com/azure-sql-edge:latest
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Sql12345
-    ports:
-      - 1433:1433
-    networks:
-      - my-network
-
-  nginx:
-    image: nginx:latest
+    network_mode: service:nginx
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    ports:
-      - 80:80
-    networks:
-      - my-network
+      - /Users/mydatabase:/var/opt/mssql
 
-networks:
-  my-network:
+  node-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    network_mode: service:nginx
+    depends_on:
+      - sql-server
