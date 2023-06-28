@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 
 // create a Sequelize instance with your database connection information
 const sequelize = new Sequelize('Zeiterfassung', 'sa', 'Sql12345', {
-    host: 'localhost',
+    host: 'host.docker.internal',
     dialect: 'mssql',  // use 'mssql' for SQL Server
     dialectOptions: {
         options: {
