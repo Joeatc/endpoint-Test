@@ -12,7 +12,8 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Sql12345
-    network_mode: service:nginx
+    ports:
+      - "1433:1433"
     volumes:
       - ./mydatabase:/var/opt/mssql
 
