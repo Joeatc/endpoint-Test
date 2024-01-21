@@ -7,19 +7,20 @@ services:
     ports:
       - "80:80"
 
-#  sql-server:
-#    image: mcr.microsoft.com/mssql/server:2019-latest
-#    environment:
-#      - ACCEPT_EULA=Y
-#      - SA_PASSWORD=Sql12345
-#    network_mode: service:nginx
-#    volumes:
-#      - ./mydatabase:/var/opt/mssql
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Sql12345
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./mydatabase:/var/opt/mssql
 
   node-app:
     build:
       context: .
       dockerfile: Dockerfile
     network_mode: service:nginx
-#    depends_on:
-#      - sql-server
+    depends_on:
+      - sql-server
